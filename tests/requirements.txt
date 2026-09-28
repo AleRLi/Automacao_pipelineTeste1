@@ -1,0 +1,6 @@
+selenium>=4.0.0
+webdriver-manager>=4.0.0
+pytest>=7.0.0
+pytest-html>=3.2.0
+# Adicione aqui o Guará ou outros pacotes do seu framework, ex:
+# guara-framework
