@@ -6,6 +6,7 @@ from tests.pages.base_page import BasePage
 
 class InventoryPage(BasePage):
     ADD_BACKPACK = (By.ID, "add-to-cart-sauce-labs-backpack")
+    ADD_PRODUCT_BUTTONS = (By.CSS_SELECTOR, "button[id^='add-to-cart-']")
     CART = (By.CLASS_NAME, "shopping_cart_link")
     CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
     MENU_BUTTON = (By.ID, "react-burger-menu-btn")
@@ -17,6 +18,11 @@ class InventoryPage(BasePage):
 
     def add_product(self):
         self.click(*self.ADD_BACKPACK)
+
+    def add_all_products(self):
+        product_count = len(self.find_all(*self.ADD_PRODUCT_BUTTONS))
+        for _ in range(product_count):
+            self.click(*self.ADD_PRODUCT_BUTTONS)
 
     def go_to_cart(self):
         self.click(*self.CART)
