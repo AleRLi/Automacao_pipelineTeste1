@@ -1,8 +1,9 @@
 import pytest
 
-from tests.fixtures.driver import driver as _driver  # noqa: F401
 from tests.flows.auth_flow import AuthFlow
 from tests.flows.shopping_flow import ShoppingFlow
+
+pytest_plugins = ("tests.fixtures.driver",)
 
 
 def pytest_configure(config):
