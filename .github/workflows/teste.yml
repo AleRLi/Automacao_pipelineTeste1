@@ -38,7 +38,7 @@ jobs:
       - name: Run tests
         run: |
           mkdir -p reports/screenshots
-          pytest tests/specs \
+          python -m pytest tests/specs \
             --html reports/report.html \
             --junitxml=reports/results.xml \
             --self-contained-html
