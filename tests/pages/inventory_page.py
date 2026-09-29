@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+
 from tests.pages.base_page import BasePage
 
 
@@ -36,7 +37,10 @@ class InventoryPage(BasePage):
         Select(self.find(*self.SORT_DROPDOWN)).select_by_value(value)
 
     def get_product_prices(self):
-        return [float(product.text.replace("$", "")) for product in self.find_all(*self.PRODUCT_PRICE)]
+        return [
+            float(product.text.replace("$", ""))
+            for product in self.find_all(*self.PRODUCT_PRICE)
+        ]
 
     def get_product_names(self):
         return [product.text for product in self.find_all(*self.PRODUCT_NAME)]

@@ -1,15 +1,17 @@
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.chrome.options import Options
-import pytest
-import tempfile
 import os
- 
+import tempfile
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+
+
 @pytest.fixture
 def driver():
     chrome_options = Options()
-    
+
     # Verifica se deve rodar em modo headless (ex: via variável de ambiente no CI)
     # Você pode definir HEADLESS=true no GitHub Actions se desejar
     is_ci = os.getenv("CI", "false").lower() == "true"
@@ -21,21 +23,21 @@ def driver():
     # Perfil limpo e isolado (Corrigido para --user-data-dir)
     user_data_dir = tempfile.mkdtemp()
     chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
-     
+
     # Desativa Password Manager convencional
     prefs = {
         "credentials_enable_service": False,
         "profile.password_manager_enabled": False,
         # DESATIVA DETECÇÃO DE VAZAMENTO
-        "profile.password_manager_leak_detection": False
+        "profile.password_manager_leak_detection": False,
     }
-     
+
     chrome_options.add_experimental_option("prefs", prefs)
-     
+
     # Desativa Safe Browsing (remove alertas de segurança)
     chrome_options.add_argument("--disable-features=PasswordLeakDetection")
     chrome_options.add_argument("--safebrowsing-disable-leakdetection")
-     
+
     # Hardening adicional
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-infobars")
